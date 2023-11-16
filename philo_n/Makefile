@@ -1,16 +1,20 @@
-NAME = philo
-SRC = philo/philo.c philo/utils.c philo/time_utils.c philo/init.c
+NAME = prog
+SRC = philo.c utils.c init.c routine.c time_utils.c
 OBJ = $(SRC:.c=.o)
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
+MY_EXEC = ./$(NAME) 3 400 200 200
 
 all: $(NAME)
-	./$(NAME) 2 400 200 200
+	$(MY_EXEC)
 
 l:
-	leaks --atExit -- ./$(NAME) 2 400 200 200
+	leaks --atExit -- $(MY_EXEC)
+
+v:
+	valgrind $(MY_EXEC)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
@@ -20,4 +24,5 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	
+
+re: fclean all

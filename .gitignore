@@ -1,3 +1,6 @@
 .vscode
 *.o
 prog
+prog.dSYM
+philo.dSYM
+philo
