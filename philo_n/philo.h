@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:55:17 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/16 13:09:21 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/16 16:14:26 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,15 @@ typedef struct s_rule
 	u_int64_t		eat;
 	u_int64_t		sleep;
 	u_int64_t		start;
+	u_int64_t		eat_nb;
+	int				eat_finished;
 	pthread_mutex_t	mutex_dead;
+	pthread_mutex_t	mutex_eat_finished;
+	t_bool			monitor_end;
 	t_bool			dead; // status to check philo died
 	int				nb; // number of philosopher
 	// pthread_mutex_t	*forks; // malloc by nb size
+	pthread_t		monitor_th;
 }	t_rule;
 
 typedef struct s_philo
@@ -78,5 +83,6 @@ int init_philos(t_rule *rule, t_philo **philos);
 // int	join_thread(t_rule *rule, t_philo *p);
 
 void	*routine(void *arg);
+void	*monitor(void *arg);
 
 #endif

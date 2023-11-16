@@ -5,7 +5,7 @@ OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
-MY_EXEC = ./$(NAME) 3 400 200 200
+MY_EXEC = ./$(NAME) 5 800 200 200
 
 all: $(NAME)
 	$(MY_EXEC)

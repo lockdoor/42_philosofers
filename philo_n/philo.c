@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 08:11:16 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/16 14:26:13 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/16 14:35:05 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void	destroy_mutex(t_philo *p)
 
 int	create_thread(t_philo *p)
 {
-	int nb;
+	t_rule	*rule;
 	int i;
 
 	i = 0;
-	nb = p[i].rule->nb;
-	while (i < nb)
+	rule = p[i].rule;
+	while (i < rule->nb)
 	{
 		if (pthread_create(&p[i].th, NULL, &routine, &p[i]))
 		{
@@ -45,17 +45,24 @@ int	create_thread(t_philo *p)
 		}
 		i++ ;
 	}
+	if (pthread_create(&rule->monitor_th, NULL, &monitor, p))
+	{
+		destroy_mutex(p);
+		free(p);
+		ft_putendl_fd (FAILED_CREATE_THREAD, 2);
+		return (1);
+	}
 	return (0);
 }
 
 int join_thread(t_philo *p)
 {
-	int nb;
+	t_rule	*rule;
 	int i;
 
 	i = 0;
-	nb = p[i].rule->nb;
-	while (i < nb)
+	rule = p[i].rule;
+	while (i < rule->nb)
 	{
 		if (pthread_join(p[i].th, NULL))
 		{
@@ -65,6 +72,13 @@ int join_thread(t_philo *p)
 			return (1);
 		}
 		i++ ;
+	}
+	if (pthread_join(rule->monitor_th, NULL))
+	{
+		destroy_mutex(p);
+		free(p);
+		ft_putendl_fd (FAILED_CREATE_THREAD, 2);
+		return (1);
 	}
 	return (0);
 }

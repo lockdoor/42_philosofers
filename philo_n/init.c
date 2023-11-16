@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 08:13:31 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/16 11:52:39 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/16 16:06:14 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,19 @@
 
 int init_rule(t_rule *rule, int argc, char **argv)
 {
-	(void) argc;
+	// (void) argc;
 	rule->nb = atoi(argv[1]);
 	rule->die = atoi(argv[2]);
 	rule->eat = atoi(argv[3]);
 	rule->sleep = atoi(argv[4]);
 	rule->start = get_time_now();
+	rule->eat_finished = 0;
+	rule->eat_nb = UINT64_MAX;
+	if (argc == 6)
+		rule->eat_nb = atoi(argv[5]);
 	rule->dead = FALSE;
-	if (pthread_mutex_init (&rule->mutex_dead, NULL))
+	if (pthread_mutex_init (&rule->mutex_dead, NULL)
+	|| pthread_mutex_init (&rule->mutex_eat_finished, NULL))
 	{
 		ft_putendl_fd (FAILED_INIT_MUTEX, 2);
 		return (1);
