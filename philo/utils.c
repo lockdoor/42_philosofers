@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:54:29 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/14 14:01:13 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/17 18:17:27 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,12 @@ void	ft_putendl_fd(char *s, int fd)
 		len++ ;
 	write (fd, s, len);
 	write (fd, "\n", 1);
+}
+
+void	print_out(t_philo *p, char *s)
+{
+	u_int64_t	now;
+
+	now = get_time_now();
+	printf ("%llu %d %s\n", now - p->rule->start, p->no, s);
 }

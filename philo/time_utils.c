@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:56:58 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/14 13:36:47 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/17 18:46:35 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,22 @@
 /* return time in millisecond */
 u_int64_t	get_time_now(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
+
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+void	ft_usleep(u_int64_t ms)
+{
+	u_int64_t	start;
+	u_int64_t	now;
+
+	start = get_time_now();
+	now = start;
+	while (now - start < ms)
+	{
+		usleep(1);
+		now = get_time_now();
+	}
 }
