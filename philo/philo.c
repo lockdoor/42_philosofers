@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 08:11:16 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/17 18:44:24 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/18 10:09:49 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	exit_error(t_philo *p, char *s)
 		pthread_mutex_destroy (&p[i].mutex_last_meal);
 	}
 	pthread_mutex_destroy (&p[0].rule->mutex_eat_finished);
+	pthread_mutex_destroy (&p[0].rule->mutex_mornitor_end);
 	free(p);
 	ft_putendl_fd (s, 2);
 	return (1);
@@ -69,6 +70,8 @@ int	main(int argc, char **argv)
 	t_rule	rule;
 	t_philo	*p;
 
+	if (check_arg (argc, argv))
+		return (1);
 	if (init_rule(&rule, argc, argv))
 		return (1);
 	if (init_philos(&rule, &p))

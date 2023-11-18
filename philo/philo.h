@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:55:17 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/17 18:49:38 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/18 12:21:31 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_rule
 	u_int64_t		eat_nb;
 	int				eat_finished;
 	pthread_mutex_t	mutex_eat_finished;
+	pthread_mutex_t	mutex_mornitor_end;
 	t_bool			monitor_end;
 	int				nb;
 	pthread_t		monitor_th;
@@ -69,6 +70,8 @@ void		ft_usleep(u_int64_t ms);
 // utils.c
 void		ft_putendl_fd(char *s, int fd);
 void		print_out(t_philo *p, char *s);
+int			ft_isdigit(char c);
+int			ft_atoi(const char *str);
 
 // init.c
 int			init_rule(t_rule *rule, int argc, char **argv);
@@ -79,5 +82,8 @@ void		*routine(void *arg);
 
 // monitor.c
 void		*monitor(void *arg);
+
+// check_arg.c
+int			check_arg(int argc, char **argv);
 
 #endif

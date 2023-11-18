@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 08:13:31 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/17 18:42:13 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/18 10:09:25 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 int	init_rule(t_rule *rule, int argc, char **argv)
 {
-	rule->nb = atoi(argv[1]);
-	rule->die = atoi(argv[2]);
-	rule->eat = atoi(argv[3]);
-	rule->sleep = atoi(argv[4]);
+	rule->nb = ft_atoi(argv[1]);
+	rule->die = ft_atoi(argv[2]);
+	rule->eat = ft_atoi(argv[3]);
+	rule->sleep = ft_atoi(argv[4]);
 	rule->start = get_time_now();
 	rule->eat_finished = 0;
 	rule->monitor_end = FALSE;
 	rule->eat_nb = UINT64_MAX;
 	if (argc == 6)
-		rule->eat_nb = atoi(argv[5]);
-	if (pthread_mutex_init (&rule->mutex_eat_finished, NULL))
+		rule->eat_nb = ft_atoi(argv[5]);
+	if (pthread_mutex_init (&rule->mutex_eat_finished, NULL)
+		|| pthread_mutex_init(&rule->mutex_mornitor_end, NULL))
 	{
 		ft_putendl_fd (FAILED_INIT_MUTEX, 2);
 		return (1);
@@ -62,6 +63,7 @@ static int	init_philos_2(t_rule *rule, t_philo *p)
 				pthread_mutex_destroy(&p[i].mutex_last_meal);
 			}
 			pthread_mutex_destroy (&rule->mutex_eat_finished);
+			pthread_mutex_destroy (&rule->mutex_mornitor_end);
 			free (p);
 			return (1);
 		}
@@ -78,6 +80,7 @@ int	init_philos(t_rule *rule, t_philo **philos)
 	if (p == NULL)
 	{
 		pthread_mutex_destroy (&rule->mutex_eat_finished);
+		pthread_mutex_destroy (&rule->mutex_mornitor_end);
 		ft_putendl_fd(MALLOC_ERROR, 2);
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:34:19 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/17 18:45:39 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/18 09:51:48 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	*routine(void *arg)
 	p->last_meal = get_time_now();
 	pthread_mutex_unlock(&p->mutex_last_meal);
 	if (p->no % 2 == 0)
-		usleep(10);
+		usleep(p->rule->eat / 2);
 	while (i < p->rule->eat_nb)
 	{
 		get_forks(p);

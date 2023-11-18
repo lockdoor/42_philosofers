@@ -6,11 +6,25 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 18:15:38 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/17 18:43:21 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/18 11:02:14 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	monitor_end(t_philo *p, t_rule *rule, t_bool daed)
+{
+	u_int64_t	now;
+
+	pthread_mutex_lock(&rule->mutex_mornitor_end);
+	if (daed)
+	{
+		now = get_time_now();
+		printf ("%llu %d %s\n", now - p->rule->start, p->no, DIE);
+	}
+	rule->monitor_end = TRUE;
+	pthread_mutex_unlock(&rule->mutex_mornitor_end);
+}
 
 static void	monitor_helper(t_philo *p, t_rule *rule)
 {
@@ -24,15 +38,14 @@ static void	monitor_helper(t_philo *p, t_rule *rule)
 		now = get_time_now();
 		if (now - p[i].last_meal > rule->die)
 		{
-			print_out(p, DIE);
-			rule->monitor_end = TRUE;
+			monitor_end(&p[i], rule, TRUE);
 			break ;
 		}
 		pthread_mutex_unlock(&p[i].mutex_last_meal);
 		pthread_mutex_lock(&rule->mutex_eat_finished);
 		if (rule->eat_finished == rule->nb)
 		{
-			rule->monitor_end = TRUE;
+			monitor_end(&p[i], rule, FALSE);
 			break ;
 		}
 		pthread_mutex_unlock(&rule->mutex_eat_finished);
@@ -63,5 +76,6 @@ void	*monitor(void *arg)
 		i++;
 	}
 	pthread_mutex_destroy (&rule->mutex_eat_finished);
+	pthread_mutex_destroy (&rule->mutex_mornitor_end);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:56:58 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/17 18:46:35 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/18 09:56:11 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_usleep(u_int64_t ms)
 	now = start;
 	while (now - start < ms)
 	{
-		usleep(1);
+		usleep(300);
 		now = get_time_now();
 	}
 }
