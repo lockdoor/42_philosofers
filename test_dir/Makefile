@@ -1,8 +1,8 @@
 NAME = prog
 
 CC = cc
-# CFLAGS = -Wall -Werror -Wextra
-CFLAGS = 
+CFLAGS = -Wall -Werror -Wextra
+# CFLAGS = 
 
 # SRC = 03_race_condition.c
 # SRC = 04_mutex.c
@@ -17,7 +17,9 @@ CFLAGS =
 # SRC = 17_detach.c
 # SRC = 18_static_initializers.c
 # SRC = 19_deadlock.c 
-SRC = 20_semaphore.c 
+# SRC = 20_semaphore.c 
+SRC = 20_sem_p.c 
+# SRC = 23_producer_comsumer.c 
 
 all: clean $(NAME)
 	./$(NAME)

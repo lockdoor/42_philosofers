@@ -7,8 +7,19 @@
 
 #define	TH 20
 
+// int	nb[10];
 sem_t *sem;
 
+// void	*producer(void *arg)
+// {
+// 	int	t = rand() % 100;
+// 	return (NULL);
+// }
+
+// void	*consumer(void *arg)
+// {
+// 	return (NULL);
+// }
 void	*routine(void *arg)
 {
 	int n = *(int *)arg;
@@ -22,6 +33,8 @@ void	*routine(void *arg)
 
 int	main(void)
 {
+	// pthread_t	p;
+	// pthread_t	c;
 	pthread_t	th[TH];
 	int			i;
 
@@ -51,5 +64,21 @@ int	main(void)
 		i++ ;
 	}
 	sem_close(sem);
+	// if (pthread_create(&p, NULL, &producer, NULL))
+	// {
+	// 	perror("Faild create producer");
+	// }
+	// if (pthread_create(&p, NULL, &producer, NULL))
+	// {
+	// 	perror("Faild create comsumer");
+	// }
+	// if (pthread_join(p, NULL))
+	// {
+	// 	perror("Faild join producer");
+	// }
+	// if (pthread_join(c, NULL))
+	// {
+	// 	perror("Faild join consumer");
+	// }
 	return (0);
 }
