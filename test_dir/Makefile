@@ -4,6 +4,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 # CFLAGS = 
 
+SRC = 00_join.c
 # SRC = 03_race_condition.c
 # SRC = 04_mutex.c
 # SRC = 05_loop_thread.c
@@ -18,7 +19,7 @@ CFLAGS = -Wall -Werror -Wextra
 # SRC = 18_static_initializers.c
 # SRC = 19_deadlock.c 
 # SRC = 20_semaphore.c 
-SRC = 20_sem_p.c 
+# SRC = 20_sem_p.c 
 # SRC = 23_producer_comsumer.c 
 
 all: clean $(NAME)

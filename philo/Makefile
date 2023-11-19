@@ -6,7 +6,7 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/18 12:19:46 by pnamnil           #+#    #+#              #
-#    Updated: 2023/11/18 12:19:56 by pnamnil          ###   ########.fr        #
+#    Updated: 2023/11/19 07:01:35 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CFLAGS = -Wall -Werror -Wextra
 MY_EXEC = ./$(NAME) 60 122 60 60
 
 all: $(NAME)
-	$(MY_EXEC)
+# $(MY_EXEC)
 
 l:
 	leaks --atExit -- $(MY_EXEC)

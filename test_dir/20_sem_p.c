@@ -10,11 +10,12 @@ int main(void)
     int     pn;
     char    *s = "555";
     int     *nb = (int *)malloc(sizeof(int));
-    *nb = 10;
+    *nb = 2;
 
-    pn = 6;
+    pn = 4;
     sem = sem_open("my_sem", O_CREAT | O_EXCL, 0644, 1);
-    sem_unlink("my_sem");
+    int ulink = sem_unlink("my_sem");
+    printf("unlink: %d\n", ulink);
 
     pid_t   id[pn];
     for (int i = 0; i < pn; i++)

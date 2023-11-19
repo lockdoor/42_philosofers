@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:34:19 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/18 09:51:48 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/19 07:03:58 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static int	get_forks(t_philo *p)
 
 static int	eating(t_philo *p, u_int64_t i)
 {
+	pthread_mutex_lock(&p->mutex_last_meal);
+	p->last_meal = get_time_now();
 	print_out(p, EAT);
+	pthread_mutex_unlock(&p->mutex_last_meal);
 	ft_usleep(p->rule->eat);
 	pthread_mutex_lock(&p->mutex_last_meal);
 	p->last_meal = get_time_now();
