@@ -6,27 +6,39 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:39:39 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/21 06:32:49 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:27:46 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
+void	ft_putendl_fd(char *s, int fd)
+{
+	size_t	len;
+
+	if (!s || fd < 0)
+		return ;
+	len = 0;
+	while (s[len])
+		len++ ;
+	write (fd, s, len);
+	write (fd, "\n", 1);
+}
+
 void	print_out(t_philo *p, char *s)
 {
 	u_int64_t	now;
 
-	// pthread_mutex_lock(&p->rule->mutex_mornitor_end);
-	// if (!p->rule->monitor_end)
-	// {
-	if (check_dead(p))
-		return ;
 	now = get_time_now();
 	sem_wait(p->sem_print);
-	printf ("%llu %d %s\n", now - p->time_start, p->philo_no, s);
+	if (!check_dead(p))
+		printf ("%llu %d %s\n", now - p->time_start, p->philo_no, s);
 	sem_post(p->sem_print);
-	// }
-	// pthread_mutex_unlock(&p->rule->mutex_mornitor_end);
+}
+
+int	ft_isdigit(char c)
+{
+	return (c >= '0' && c <= '9');
 }
 
 int	ft_atoi(const char *str)

@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:28:46 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/21 06:27:36 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/11/21 15:55:14 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,43 +40,54 @@
 # define SEM_FORKS "/sem_forks"
 # define SEM_PRINT "/sem_print"
 # define SEM_DIE "/sem_die"
-# define SEM_LAST_MEAL "/sem_last_meal"
+# define SEM_MONITOR "/sem_monitor"
+
+typedef enum e_bool
+{
+	TRUE = 1,
+	FALSE = 0
+}	t_bool;
 
 typedef struct s_philo
 {
-	int	philo_nb;
-	int philo_no;
-	int	time_die;
-	int	time_eat;
-	int	time_sleep;
-	int die_status;
-	u_int64_t time_start;
-	u_int64_t must_meal;
-	u_int64_t had_meal;
-	u_int64_t last_meal;
-	sem_t	*sem_forks;
-	sem_t	*sem_print;
-	sem_t	*sem_die;
+	int			philo_nb;
+	int			philo_no;
+	int			time_die;
+	int			time_eat;
+	int			time_sleep;
+	int			die_status;
+	u_int64_t	time_start;
+	u_int64_t	must_meal;
+	u_int64_t	had_meal;
+	u_int64_t	last_meal;
+	sem_t		*sem_forks;
+	sem_t		*sem_print;
+	sem_t		*sem_die;
+	sem_t		*sem_monitor;
 	pthread_t	monitor;
-	sem_t *sem_last_meal;
 }	t_philo;
 
+// check_arg.c
+int			check_arg(int argc, char **argv);
+
 // init_philo.c
-int	init_philo(int argc, char **argv, t_philo *p);
+int			init_philo(int argc, char **argv, t_philo *p);
 
 // routine.c
-int	routine(t_philo *p, int idx);
+int			routine(t_philo *p, int idx);
 
 // monitor.c
-void	*monitor(void *arg);
-int	check_dead(t_philo *p);
+void		*monitor(void *arg);
+int			check_dead(t_philo *p);
 
 // utils.c
-int	ft_atoi(const char *str);
-void	print_out(t_philo *p, char *s);
+int			ft_atoi(const char *str);
+int			ft_isdigit(char c);
+void		print_out(t_philo *p, char *s);
+void		ft_putendl_fd(char *s, int fd);
 
 // time_utils.c
 u_int64_t	get_time_now(void);
-void	ft_usleep(u_int64_t ms);
+void		ft_usleep(u_int64_t ms);
 
 #endif

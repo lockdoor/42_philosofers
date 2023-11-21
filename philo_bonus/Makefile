@@ -6,12 +6,12 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/18 12:19:46 by pnamnil           #+#    #+#              #
-#    Updated: 2023/11/21 06:12:30 by pnamnil          ###   ########.fr        #
+#    Updated: 2023/11/21 15:54:43 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo_bonus
-SRC = philo_bonus.c utils.c init_philo.c routine.c monitor.c time_utils.c
+SRC = philo_bonus.c check_arg.c utils.c init_philo.c routine.c monitor.c time_utils.c
 OBJ = $(SRC:.c=.o)
 
 CC = cc
@@ -24,10 +24,11 @@ CFLAGS = -Wall -Werror -Wextra
 # MY_EXEC = ./$(NAME) 5 800 200 200 7
 # MY_EXEC = ./$(NAME) 4 410 200 200
 # MY_EXEC = ./$(NAME) 4 310 200 100
-MY_EXEC = ./$(NAME) 3 119 60 60
+# MY_EXEC = ./$(NAME) 3 119 60 60
+
+HEADER = philo_bonus.h
 
 all: $(NAME)
-	$(MY_EXEC)
 
 l:
 	leaks --atExit -- $(MY_EXEC)
@@ -35,7 +36,7 @@ l:
 v:
 	valgrind $(MY_EXEC)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEADER)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 clean:

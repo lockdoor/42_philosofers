@@ -6,7 +6,7 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/18 12:19:46 by pnamnil           #+#    #+#              #
-#    Updated: 2023/11/20 15:42:26 by pnamnil          ###   ########.fr        #
+#    Updated: 2023/11/21 15:54:16 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,11 @@ CFLAGS = -Wall -Werror -Wextra
 # MY_EXEC = ./$(NAME) 5 800 200 200 7
 # MY_EXEC = ./$(NAME) 4 410 200 200
 # MY_EXEC = ./$(NAME) 4 310 200 100
-MY_EXEC = ./$(NAME) 4 122 60 60 2
+# MY_EXEC = ./$(NAME) 4 122 60 60 2
+
+HEADER = philo.h
 
 all: $(NAME)
-# $(MY_EXEC)
 
 l:
 	leaks --atExit -- $(MY_EXEC)
@@ -35,7 +36,7 @@ l:
 v:
 	valgrind $(MY_EXEC)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEADER)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 clean:

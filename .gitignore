@@ -4,5 +4,7 @@ prog
 prog.dSYM
 philo.dSYM
 philo/philo
+philo_bonus/philo_bonus
 out
 philosophers_test
+outfile
