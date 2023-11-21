@@ -6,12 +6,12 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/18 12:19:46 by pnamnil           #+#    #+#              #
-#    Updated: 2023/11/19 07:01:35 by pnamnil          ###   ########.fr        #
+#    Updated: 2023/11/20 15:42:26 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-SRC = philo.c utils.c check_arg.c init.c routine.c mornitor.c time_utils.c
+SRC = philo.c utils.c check_arg.c init.c routine.c monitor.c time_utils.c
 OBJ = $(SRC:.c=.o)
 
 CC = cc
@@ -24,7 +24,7 @@ CFLAGS = -Wall -Werror -Wextra
 # MY_EXEC = ./$(NAME) 5 800 200 200 7
 # MY_EXEC = ./$(NAME) 4 410 200 200
 # MY_EXEC = ./$(NAME) 4 310 200 100
-MY_EXEC = ./$(NAME) 60 122 60 60
+MY_EXEC = ./$(NAME) 4 122 60 60 2
 
 all: $(NAME)
 # $(MY_EXEC)
