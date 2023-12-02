@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:37:52 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/21 15:45:00 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/12/02 09:13:53 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	check_philo_only_one(t_philo *p)
 	{
 		ft_usleep(p->time_die);
 		printf ("%d %d %s\n", p->time_die, 1, DIE);
-		return (1);
+		exit (EXIT_SUCCESS);
 	}
 	return (0);
 }
@@ -78,8 +78,7 @@ int	init_philo(int argc, char **argv, t_philo *p)
 	p->time_die = ft_atoi(argv[2]);
 	p->time_eat = ft_atoi(argv[3]);
 	p->time_sleep = ft_atoi(argv[4]);
-	if (check_philo_only_one(p))
-		return (1);
+	check_philo_only_one(p);
 	p->must_meal = SIZE_MAX;
 	if (argc == 6)
 		p->must_meal = ft_atoi(argv[5]);
