@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:34:19 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/19 07:03:58 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/12/03 11:41:50 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,22 @@ static int	get_forks(t_philo *p)
 	return (0);
 }
 
-static int	eating(t_philo *p, u_int64_t i)
+static int	eating(t_philo *p)
 {
-	pthread_mutex_lock(&p->mutex_last_meal);
-	p->last_meal = get_time_now();
 	print_out(p, EAT);
-	pthread_mutex_unlock(&p->mutex_last_meal);
 	ft_usleep(p->rule->eat);
 	pthread_mutex_lock(&p->mutex_last_meal);
 	p->last_meal = get_time_now();
 	pthread_mutex_unlock(&p->mutex_last_meal);
-	if (i + 1 == p->rule->eat_nb)
+	p->had_meal++ ;
+	if (p->had_meal == p->rule->must_meal)
 	{
 		pthread_mutex_lock(&p->rule->mutex_eat_finished);
 		p->rule->eat_finished += 1;
-		if (p->rule->eat_finished == p->rule->nb)
-		{
-			pthread_mutex_unlock(&p->rule->mutex_eat_finished);
-			return (1);
-		}
 		pthread_mutex_unlock(&p->rule->mutex_eat_finished);
+		pthread_mutex_unlock(&p->l_fork);
+		pthread_mutex_unlock(p->r_fork);
+		return (1);
 	}
 	pthread_mutex_unlock(&p->l_fork);
 	pthread_mutex_unlock(p->r_fork);
@@ -56,23 +52,21 @@ static int	sleeping(t_philo *p)
 void	*routine(void *arg)
 {
 	t_philo		*p;
-	u_int64_t	i;
 
 	p = (t_philo *) arg;
-	i = 0;
+	p->had_meal = 0;
 	pthread_mutex_lock(&p->mutex_last_meal);
 	p->last_meal = get_time_now();
 	pthread_mutex_unlock(&p->mutex_last_meal);
 	if (p->no % 2 == 0)
 		usleep(p->rule->eat / 2);
-	while (i < p->rule->eat_nb)
+	while (p->had_meal < p->rule->must_meal)
 	{
 		get_forks(p);
-		if (eating(p, i))
+		if (eating(p))
 			break ;
 		sleeping(p);
 		print_out(p, THINK);
-		i++ ;
 	}
 	return (NULL);
 }

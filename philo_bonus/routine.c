@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:22:16 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/21 13:36:28 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/12/03 11:41:33 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	eatting(t_philo *p)
 		sem_post(p->sem_forks);
 		return (1);
 	}
-	p->last_meal = get_time_now();
 	print_out(p, EAT);
 	ft_usleep(p->time_eat);
 	p->had_meal++;

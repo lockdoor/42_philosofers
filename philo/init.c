@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 08:13:31 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/18 10:09:25 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/12/03 11:15:17 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	init_rule(t_rule *rule, int argc, char **argv)
 	rule->start = get_time_now();
 	rule->eat_finished = 0;
 	rule->monitor_end = FALSE;
-	rule->eat_nb = UINT64_MAX;
+	rule->must_meal = UINT64_MAX;
 	if (argc == 6)
-		rule->eat_nb = ft_atoi(argv[5]);
+		rule->must_meal = ft_atoi(argv[5]);
 	if (pthread_mutex_init (&rule->mutex_eat_finished, NULL)
 		|| pthread_mutex_init(&rule->mutex_mornitor_end, NULL))
 	{

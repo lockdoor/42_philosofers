@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:55:17 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/11/18 12:21:31 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/12/03 11:16:13 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_rule
 	u_int64_t		eat;
 	u_int64_t		sleep;
 	u_int64_t		start;
-	u_int64_t		eat_nb;
+	u_int64_t		must_meal;
 	int				eat_finished;
 	pthread_mutex_t	mutex_eat_finished;
 	pthread_mutex_t	mutex_mornitor_end;
@@ -55,6 +55,7 @@ typedef struct s_rule
 typedef struct s_philo
 {
 	u_int64_t		last_meal;
+	u_int64_t		had_meal;
 	int				no;
 	struct s_rule	*rule;
 	pthread_mutex_t	mutex_last_meal;
